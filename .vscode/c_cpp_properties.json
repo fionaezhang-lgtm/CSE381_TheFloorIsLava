@@ -1,0 +1,20 @@
+{
+	"configurations": [
+		{
+			"name": "LavaGuayaraZhangEditor Editor Win64 Development (LavaGuayaraZhang)",
+			"compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
+			"cStandard": "c17",
+			"cppStandard": "c++20",
+			"intelliSenseMode": "msvc-x64",
+			"compileCommands": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_LavaGuayaraZhang.json"
+		},
+		{
+			"name": "Win32",
+			"compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
+			"cStandard": "c17",
+			"cppStandard": "c++20",
+			"intelliSenseMode": "msvc-x64",
+			"compileCommands": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default.json"
+		}
+	]
+}
