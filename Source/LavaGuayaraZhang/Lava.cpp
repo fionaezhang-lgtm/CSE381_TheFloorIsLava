@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Lava.h"
+#include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ALava::ALava()
@@ -25,3 +24,14 @@ void ALava::Tick(float DeltaTime)
 
 }
 
+float ALava: GetRiseHeight() const
+{
+	return 0.0f;
+}
+
+void HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, 
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+	bool bFromSweep, const FHitResult& Sweep);
+{
+
+}
