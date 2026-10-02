@@ -14,6 +14,8 @@
 class UInputMappingContext;
 class UInputAction;
 class UInputComponent;
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS()
 class LAVAGUAYARAZHANG_API ALavaCharacter : public ACharacter
@@ -58,21 +60,30 @@ public:
 	UFUNCTION()
 	void Look(const FInputActionValue& Value);
 
-	// Third Person camera
+	// Third-person camera boom
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	TObjectPtr<USpringArmComponent> CameraBoom;
+
+	// Follow camera
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	TObjectPtr<UCameraComponent> FollowCamera;
+
+	//Third person camera
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	TObjectPtr<UCameraComponent> ThirdPersonCameraComponent;
 
-	// Offset for the third-person camera
-	UPROPERTY(EditAnywhere, Category = Camera)
-	FVector ThirdPersonCameraOffset = FVector(-300.0f, 0.0f, 150.0f);
+	//Spring arm for the third person camera
+	UPROPERTY(VisibleAnywhere, Category = Camera)
+	TObjectPtr<USpringArmComponent> SpringArmComponent;
 
-	// Third-person primitives field of view
+	// Third-person field of view
 	UPROPERTY(EditAnywhere, Category = Camera)
 	float ThirdPersonFieldOfView = 70.0f;
 
-	// Third-person primitives view scale
-	UPROPERTY(EditAnywhere, Category = Camera)
-	float ThirdPersonScale = 0.6f;
+
+	
+
+	
 
 	//// Third-person mesh, visible only to the owning player
 	//UPROPERTY(VisibleAnywhere, Category = Mesh)

@@ -2,6 +2,8 @@
 
 
 #include "LavaCharacter.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ALavaCharacter::ALavaCharacter()
@@ -9,14 +11,31 @@ ALavaCharacter::ALavaCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Create camera boom
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	CameraBoom->SetupAttachment(RootComponent);
+	CameraBoom->TargetArmLength = 300.0f;
+	CameraBoom->bUsePawnControlRotation = true;
+
+	// Create follow camera
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	FollowCamera->bUsePawnControlRotation = false;
+
 }
+
+
+
 
 // Called when the game starts or when spawned
 void ALavaCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(GEngine != nullptr);
+	//check(GEngine != nullptr);
+
+	GetMesh()->CastShadow = true;
+	GetMesh()->bCastHiddenShadow = true;
 
 	// Get the player controller for this character
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
@@ -64,12 +83,15 @@ void ALavaCharacter::Move(const FInputActionValue& Value)
 	// Check if the controller possessing this Actor is valid
 	if (Controller)
 	{
-		const FVector Right = GetActorRightVector();
-		AddMovementInput(Right, MovementValue.X);
+		const FRotator Rotation = Controller->GetControlRotation();
 
-		// Add forward and back movement
-		const FVector Forward = GetActorForwardVector();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		const FVector Forward = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		const FVector Right = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
 		AddMovementInput(Forward, MovementValue.Y);
+		AddMovementInput(Right, MovementValue.X);
 	}
 }
 
