@@ -8,7 +8,7 @@ class UBoxComponent;
 class UStaticMeshComponent;
 
 UCLASS()
-class LAVA_API ALava : public AActor
+class LAVAGUAYARAZHANG_API ALava : public AActor
 {
     GENERATED_BODY()
 

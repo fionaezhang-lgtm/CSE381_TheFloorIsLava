@@ -24,14 +24,14 @@ void ALava::Tick(float DeltaTime)
 
 }
 
-float ALava: GetRiseHeight() const
+float ALava::GetRiseHeight() const
 {
 	return 0.0f;
 }
 
-void HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, 
+void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, 
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
-	bool bFromSweep, const FHitResult& Sweep);
+	bool bFromSweep, const FHitResult& Sweep)
 {
 
 }
