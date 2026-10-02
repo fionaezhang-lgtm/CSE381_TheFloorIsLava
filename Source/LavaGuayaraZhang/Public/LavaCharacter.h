@@ -26,6 +26,8 @@ public:
 	// Sets default values for this character's properties
 	ALavaCharacter();
 
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -44,6 +46,20 @@ protected:
 	// Look Input Actions
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> LookAction;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning")
+	float JumpZVelocity = 600.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning")
+	float AirControl = 0.5f;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning")
+	float GravityScale = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning")
+	int32 MaxJumpCount = 2;
+
+
 
 public:	
 	// Called every frame
@@ -68,26 +84,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	TObjectPtr<UCameraComponent> FollowCamera;
 
-	//Third person camera
-	UPROPERTY(VisibleAnywhere, Category = Camera)
-	TObjectPtr<UCameraComponent> ThirdPersonCameraComponent;
-
-	//Spring arm for the third person camera
-	UPROPERTY(VisibleAnywhere, Category = Camera)
-	TObjectPtr<USpringArmComponent> SpringArmComponent;
-
 	// Third-person field of view
 	UPROPERTY(EditAnywhere, Category = Camera)
 	float ThirdPersonFieldOfView = 70.0f;
-
-
 	
 
 	
-
-	//// Third-person mesh, visible only to the owning player
-	//UPROPERTY(VisibleAnywhere, Category = Mesh)
-	//TObjectPtr<USkeletalMeshComponent> ThirdPersonMeshComponent;
-
 
 };

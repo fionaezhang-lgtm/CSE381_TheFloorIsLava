@@ -4,12 +4,19 @@
 #include "LavaCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ALavaCharacter::ALavaCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	GetCharacterMovement()->JumpZVelocity = JumpZVelocity;
+	GetCharacterMovement()->AirControl = AirControl;
+	GetCharacterMovement()->GravityScale = GravityScale;
+
+	JumpMaxCount = MaxJumpCount;
 
 	// Create camera boom
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
