@@ -3,7 +3,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioBlueprintDebuggerHelper\\Private\\VisualStudioBlueprintDebuggerHelperModule.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioBlueprintDebuggerHelper.0.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioBlueprintDebuggerHelper.1.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -11,7 +11,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\BlueprintAssetHelper.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -19,7 +19,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\BlueprintReferencesCommandlet.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -27,7 +27,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\VSServerCommandlet.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -35,7 +35,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\VSTestAdapterCommandlet.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -43,7 +43,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\VisualStudioTools.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -51,7 +51,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\VisualStudioToolsBlueprintBreakpointExtension.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -59,7 +59,7 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\VisualStudioToolsCommandlet.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -67,7 +67,23 @@
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\Private\\VisualStudioToolsCommandletBase.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
-			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.1.rsp"
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\VisualStudioTools.0.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Source\\LavaGuayaraZhang\\Key.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\LavaGuayaraZhang.2.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Source\\LavaGuayaraZhang\\Lava.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\LavaGuayaraZhang.2.rsp"
 		],
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
 	},
@@ -97,6 +113,14 @@
 	},
 	{
 		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Source\\LavaGuayaraZhang\\LavaGuayaraZhangPlayerController.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\LavaGuayaraZhang.2.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\Source\\LavaGuayaraZhang\\Private\\LavaGameMode.cpp",
 		"arguments": [
 			"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
 			"@C:\\Users\\Chris\\Work\\Code\\Games\\CSE381_TheFloorIsLava\\.vscode\\compileCommands_Default\\LavaGuayaraZhang.2.rsp"
