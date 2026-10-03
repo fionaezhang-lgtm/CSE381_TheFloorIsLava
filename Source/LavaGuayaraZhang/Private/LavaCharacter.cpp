@@ -41,6 +41,15 @@ void ALavaCharacter::BeginPlay()
 
 	//check(GEngine != nullptr);
 
+	LastSafeLocation = GetActorLocation();
+	GetWorldTimerManager().SetTimer(
+		SafeLocationTimer,
+		this,
+		&ALavaCharacter::UpdateSafeLocation,
+		SafeLocationInterval,
+		true
+	);
+
 	GetMesh()->CastShadow = true;
 	GetMesh()->bCastHiddenShadow = true;
 
@@ -113,3 +122,15 @@ void ALavaCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+void ALavaCharacter::UpdateSafeLocation()
+{
+	if (!GetCharacterMovement()->IsFalling() && !bInLava)
+	{
+		LastSafeLocation = GetActorLocation();
+	}
+}
+
+void ALavaCharacter::Respawn()
+{
+	SetActorLocation(LastSafeLocation);
+}

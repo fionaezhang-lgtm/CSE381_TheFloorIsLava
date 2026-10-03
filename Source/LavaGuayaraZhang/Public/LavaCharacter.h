@@ -8,6 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h" 
 #include "InputActionValue.h"
+#include "TimerManager.h"
 #include "LavaCharacter.generated.h"
 
 
@@ -26,6 +27,8 @@ public:
 	// Sets default values for this character's properties
 	ALavaCharacter();
 
+	UFUNCTION()
+	void Respawn();
 
 
 protected:
@@ -58,6 +61,17 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Tuning")
 	int32 MaxJumpCount = 2;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning")
+	float SafeLocationInterval = 0.5f;
+
+	FVector LastSafeLocation;
+
+	FTimerHandle SafeLocationTimer;
+
+	bool bInLava = false;
+
+	void UpdateSafeLocation();
 
 
 
