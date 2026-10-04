@@ -3,10 +3,12 @@
 
 #include "LavaGameMode.h"
 #include "Engine/Engine.h"
+#include "LavaHUD.h"
 
 ALavaGameMode::ALavaGameMode()
 {
-	//stub
+	HUDClass = ALavaHUD::StaticClass();
+
 }
 
 void ALavaGameMode::ReportKeyCollected()
@@ -34,8 +36,17 @@ void ALavaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-
 	LivesLeft = StartingLives;
+	TimeRemaining = LevelSeconds;
+
+	GetWorldTimerManager().SetTimer(
+		LevelTimer,
+		this,
+		&ALavaGameMode::UpdateTimeRemaining,
+		1.0f,
+		true
+	);
+
 }
 
 void ALavaGameMode::EndPlay(const EEndPlayReason::Type Reason)
@@ -56,6 +67,21 @@ void ALavaGameMode::HandleTimeExpired()
 
 float ALavaGameMode::GetTimeRemaining() const
 {
-	//stub
-	return 0.f;
+	return TimeRemaining;
+}
+
+void ALavaGameMode::UpdateTimeRemaining()
+{
+	TimeRemaining -= 1.0f;
+
+	if (TimeRemaining <= 0.0f)
+	{
+		TimeRemaining = 0.0f;
+		HandleTimeExpired();
+	}
+}
+
+int32 ALavaGameMode::GetLivesLeft() const
+{
+	return LivesLeft;
 }

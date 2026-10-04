@@ -52,7 +52,7 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 	bool bFromSweep, const FHitResult& Sweep)
 {
 	if (!Cast<ALavaCharacter>(OtherActor)) return;
-	if (OtherComp != Character->GetCapsuleComponent()) return;
+	//if (OtherComp != Character->GetCapsuleComponent()) return;
 
 
 	UE_LOG(LogTemp, Warning, TEXT("Lava Touched"));
