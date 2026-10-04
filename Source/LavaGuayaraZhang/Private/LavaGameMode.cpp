@@ -15,7 +15,7 @@ void ALavaGameMode::ReportKeyCollected()
 
 	KeysCollected++;
 	Score+= 200;
-	GEngine->AddOnScreenDebugMessage(-1,3.f, FColor::Yellow, FSTring::Printf(TEXT("Keys: %d /%d"), 
+	GEngine->AddOnScreenDebugMessage(-1,3.f, FColor::Yellow, FString::Printf(TEXT("Keys: %d /%d"), 
 	KeysCollected, KeysRequired));
 
 }

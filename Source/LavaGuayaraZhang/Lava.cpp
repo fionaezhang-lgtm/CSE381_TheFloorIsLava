@@ -3,6 +3,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "LavaCharacter.h"
 
+#include "Components/CapsuleComponent.h"
+
 // Sets default values
 ALava::ALava()
 {
@@ -50,6 +52,8 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 	bool bFromSweep, const FHitResult& Sweep)
 {
 	if (!Cast<ALavaCharacter>(OtherActor)) return;
+	if (OtherComp != Character->GetCapsuleComponent()) return;
+
 
 	UE_LOG(LogTemp, Warning, TEXT("Lava Touched"));
 

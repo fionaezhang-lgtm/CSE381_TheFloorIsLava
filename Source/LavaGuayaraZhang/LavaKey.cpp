@@ -5,6 +5,7 @@
 #include "LavaGameMode.h"
 
 
+
 // Sets default values
 ALavaKey::ALavaKey()
 {
@@ -55,7 +56,9 @@ void ALavaKey::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,bool bFromSweep, const FHitResult& Sweep){
 		if (!Cast<ALavaCharacter>(OtherActor)) return;
 		if( GetWorld()->GetAuthGameMode<ALavaGameMode>() == NULL) return;
-		ReportKeyCollected();
+		ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
+		if (!GameMode) return;
+		GameMode->ReportKeyCollected();
 		Destroy();
 
 		UE_LOG(LogTemp, Warning, TEXT("KEY PICKED-UP"));
