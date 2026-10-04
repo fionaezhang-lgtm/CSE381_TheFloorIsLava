@@ -2,6 +2,7 @@
 
 
 #include "LavaGameMode.h"
+#include "Engine/Engine.h"
 
 ALavaGameMode::ALavaGameMode()
 {
@@ -10,7 +11,13 @@ ALavaGameMode::ALavaGameMode()
 
 void ALavaGameMode::ReportKeyCollected()
 {
-	//stub
+	if (bGameOver) return;
+
+	KeysCollected++;
+	Score+= 200;
+	GEngine->AddOnScreenDebugMessage(-1,3.f, FColor::Yellow, FSTring::Printf(TEXT("Keys: %d /%d"), 
+	KeysCollected, KeysRequired));
+
 }
 
 void ALavaGameMode::ReportLifeLost()
@@ -26,7 +33,9 @@ void ALavaGameMode::ReportHatchReached()
 void ALavaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	//stub
+
+
+	LivesLeft = StartingLives;
 }
 
 void ALavaGameMode::EndPlay(const EEndPlayReason::Type Reason)

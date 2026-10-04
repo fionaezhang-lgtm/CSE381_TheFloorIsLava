@@ -3,7 +3,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Engine/Engine.h"
 #include "LavaGameMode.generated.h"
+
 
 // commented out for now to avoid compile errors. Will be uncommented when the widget is implemented
 //class UResultWidget;
@@ -30,6 +32,9 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Rules")
     bool HasAllKeys() const { return KeysCollected >= KeysRequired; }
+
+    UFUNCTION(BlueprintPure, Category = "Rules")
+    int32 GetKeysCollected() const { return KeysCollected; }
 
     UFUNCTION(BlueprintPure, Category = "Rules")
     float GetTimeRemaining() const;

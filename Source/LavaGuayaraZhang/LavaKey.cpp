@@ -1,7 +1,8 @@
 #include "LavaKey.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
-#include "LavaGuayaraZhangCharacter.h"
+#include "LavaCharacter.h"
+#include "LavaGameMode.h"
 
 
 // Sets default values
@@ -52,7 +53,10 @@ void ALavaKey::Tick(float DeltaTime)
 
 void ALavaKey::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,bool bFromSweep, const FHitResult& Sweep){
-		if (!Cast<ALavaGuayaraZhangCharacter>(OtherActor)) return;
+		if (!Cast<ALavaCharacter>(OtherActor)) return;
+		if( GetWorld()->GetAuthGameMode<ALavaGameMode>() == NULL) return;
+		ReportKeyCollected();
+		Destroy();
 
 		UE_LOG(LogTemp, Warning, TEXT("KEY PICKED-UP"));
 		Destroy();
