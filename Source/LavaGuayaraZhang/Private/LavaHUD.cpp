@@ -5,10 +5,22 @@
 #include "LavaGameMode.h"
 #include "Lava.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/Font.h"
+#include "UObject/ConstructorHelpers.h"
 
 ALavaHUD::ALavaHUD()
 {
     PrimaryActorTick.bCanEverTick = false;
+
+    static ConstructorHelpers::FObjectFinder<UFont> FontAsset(
+        TEXT("/Game/Fonts/Bremlin_Font.Bremlin_Font")
+    );
+
+    if (FontAsset.Succeeded())
+    {
+        HUD_Font = FontAsset.Object;
+    }
+
 }
 
 void ALavaHUD::DrawHUD()
@@ -53,9 +65,9 @@ void ALavaHUD::DrawHUD()
 	//Draws a black rectangle behind the text to make it more readable
     DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,140.0f);
 
-    DrawText(LivesText, FColor::Yellow,LeftMargin,TopMargin,nullptr,TextScale);
-    DrawText(TimeText, FColor::Yellow, LeftMargin, TopMargin + 40.0f, nullptr, TextScale);
-    DrawText(LavaHeightText, FColor::Yellow, LeftMargin, TopMargin + 80.0f, nullptr, TextScale);
+    DrawText(LivesText, FColor::Yellow,LeftMargin,TopMargin, HUD_Font,TextScale);
+    DrawText(TimeText, FColor::Yellow, LeftMargin, TopMargin + 40.0f, HUD_Font , TextScale);
+    DrawText(LavaHeightText, FColor::Yellow, LeftMargin, TopMargin + 80.0f, HUD_Font, TextScale);
 
 
 }

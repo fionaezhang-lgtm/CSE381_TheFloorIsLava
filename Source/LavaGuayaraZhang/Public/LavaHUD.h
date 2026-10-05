@@ -6,6 +6,8 @@
 #include "GameFramework/HUD.h"
 #include "LavaHUD.generated.h"
 
+class UFont;
+
 
 UCLASS()
 class LAVAGUAYARAZHANG_API ALavaHUD : public AHUD
@@ -26,4 +28,10 @@ protected:
 
     UPROPERTY(EditAnywhere, Category = "HUD")
     float TopMargin = 50.0f;
+
+    UPROPERTY(EditAnywhere, Category = "HUD")
+    TObjectPtr<UFont> HUD_Font;
+
+
 };
+
