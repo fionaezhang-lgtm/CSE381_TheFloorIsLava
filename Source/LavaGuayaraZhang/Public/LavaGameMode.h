@@ -43,6 +43,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Rules")
     int32 GetLivesLeft() const;
 
+    UFUNCTION(BlueprintPure, Category = "Rules")
+    int32 GetScore() const { return Score; }
+
 
 
 protected:

@@ -32,11 +32,19 @@ void ALavaHUD::DrawHUD()
         GameMode->GetLivesLeft()
     );
 
+    //Score
+    const FString ScoreText = FString::Printf(
+        TEXT("Score: %d"),
+        GameMode->GetScore()
+    );
+    
     // Clock
     const FString TimeText = FString::Printf(
         TEXT("Time: %.1f"),
         GameMode->GetTimeRemaining()
     );
+
+   
 
 
     // Find the location of the lava in the level
@@ -53,11 +61,12 @@ void ALavaHUD::DrawHUD()
     );
 
 	//Draws a black rectangle behind the text to make it more readable
-    DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,140.0f);
+    DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,180.0f);
 
     DrawText(LivesText, FColor::Yellow,LeftMargin,TopMargin, nullptr,TextScale);
-    DrawText(TimeText, FColor::Yellow, LeftMargin, TopMargin + 40.0f, nullptr , TextScale);
-    DrawText(LavaHeightText, FColor::Yellow, LeftMargin, TopMargin + 80.0f, nullptr, TextScale);
+    DrawText(ScoreText, FColor::Yellow, LeftMargin, TopMargin + 40.0f, nullptr, TextScale);
+    DrawText(TimeText, FColor::Yellow, LeftMargin, TopMargin + 80.0f, nullptr , TextScale);
+    DrawText(LavaHeightText, FColor::Yellow, LeftMargin, TopMargin + 120.0f, nullptr, TextScale);
 
 
 }
