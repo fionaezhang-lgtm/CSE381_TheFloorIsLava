@@ -29,8 +29,6 @@ protected:
     UPROPERTY(EditAnywhere, Category = "HUD")
     float TopMargin = 50.0f;
 
-    UPROPERTY(EditAnywhere, Category = "HUD")
-    TObjectPtr<UFont> HUD_Font;
 
 
 };
