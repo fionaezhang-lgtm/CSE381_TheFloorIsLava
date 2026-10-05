@@ -5,6 +5,8 @@
 #include "Engine/Engine.h"
 #include "LavaHUD.h"
 #include "ResultWidget.h"
+#include "Lava.h"
+#include "Kismet/GameplayStatics.h"
 
 ALavaGameMode::ALavaGameMode()
 {
@@ -148,5 +150,19 @@ void ALavaGameMode::DebugGrantAllKeys()
 
 void ALavaGameMode::DebugSpeedUpLava()
 {
-	//stub to be implmented after lava rising works
+	ALava* Lava = Cast<ALava>(
+		UGameplayStatics::GetActorOfClass(GetWorld(), ALava::StaticClass())
+	);
+
+	if (Lava)
+	{
+		Lava->SetRiseRate(200.0f);
+
+		GEngine->AddOnScreenDebugMessage(
+			-1,
+			3.0f,
+			FColor::Red,
+			TEXT("Lava speed increased.")
+		);
+	}
 }

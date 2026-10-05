@@ -47,6 +47,11 @@ float ALava::GetRiseHeight() const
 	return GetActorLocation().Z - StartZ;
 }
 
+void ALava::SetRiseRate(float NewRiseRate)
+{
+	RiseRate = NewRiseRate;
+}
+
 void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, 
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& Sweep)
@@ -58,3 +63,5 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 	UE_LOG(LogTemp, Warning, TEXT("Lava Touched"));
 
 }
+
+
