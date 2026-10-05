@@ -43,8 +43,7 @@ public:
     UFUNCTION(BlueprintPure, Category = "Rules")
     int32 GetLivesLeft() const;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Rules")
-    float TimeRemaining = 0.f;
+
 
 protected:
     virtual void BeginPlay() override;
@@ -52,7 +51,7 @@ protected:
 
     void EndGame(bool bWon);
     void HandleTimeExpired();
-    void UpdateTimeRemaining();
+
 
     UPROPERTY(EditDefaultsOnly, Category = "Tuning", meta = (ClampMin = "1"))
     int32 KeysRequired = 3;

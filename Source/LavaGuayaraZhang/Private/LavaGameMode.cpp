@@ -37,14 +37,14 @@ void ALavaGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	LivesLeft = StartingLives;
-	TimeRemaining = LevelSeconds;
+	
 
 	GetWorldTimerManager().SetTimer(
 		LevelTimer,
 		this,
-		&ALavaGameMode::UpdateTimeRemaining,
-		1.0f,
-		true
+		&ALavaGameMode::HandleTimeExpired,
+		LevelSeconds,
+		false
 	);
 
 }
@@ -62,24 +62,18 @@ void ALavaGameMode::EndGame(bool bWon)
 
 void ALavaGameMode::HandleTimeExpired()
 {
-	//stub
+	if (bGameOver) return;
+
+	//Ends the game if time runs out
+	EndGame(false);
+	
 }
 
 float ALavaGameMode::GetTimeRemaining() const
 {
-	return TimeRemaining;
+	return GetWorldTimerManager().GetTimerRemaining(LevelTimer);
 }
 
-void ALavaGameMode::UpdateTimeRemaining()
-{
-	TimeRemaining -= 1.0f;
-
-	if (TimeRemaining <= 0.0f)
-	{
-		TimeRemaining = 0.0f;
-		HandleTimeExpired();
-	}
-}
 
 int32 ALavaGameMode::GetLivesLeft() const
 {
