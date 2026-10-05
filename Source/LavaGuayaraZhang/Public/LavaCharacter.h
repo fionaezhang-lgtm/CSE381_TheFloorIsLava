@@ -50,6 +50,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> LookAction;
 
+	UPROPERTY(EditAnywhere, Category = "Tuning")
+	float LavaStunTime = 1.0f;
+
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> DebugSpeedLavaAction;
 
@@ -74,6 +77,9 @@ protected:
 	FVector LastSafeLocation;
 
 	FTimerHandle SafeLocationTimer;
+	FTimerHandle LavaStunTimer;
+
+	void EndLavaStun();
 
 
 

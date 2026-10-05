@@ -6,12 +6,17 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "LavaGameMode.h"
+#include "Engine/Engine.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 ALavaCharacter::ALavaCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
 	GetCharacterMovement()->JumpZVelocity = JumpZVelocity;
 	GetCharacterMovement()->AirControl = AirControl;
@@ -150,6 +155,34 @@ void ALavaCharacter::Respawn()
 
 	SetActorLocation(LastSafeLocation);
 	GetCharacterMovement()->StopMovementImmediately();
+
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			-1,
+			LavaStunTime,
+			FColor::Red,
+			TEXT("You touched the lava.")
+		);
+	}
+
+
+	GetCharacterMovement()->DisableMovement();
+
+	GetWorldTimerManager().SetTimer(
+		LavaStunTimer,
+		this,
+		&ALavaCharacter::EndLavaStun,
+		LavaStunTime,
+		false
+	);
+
+
+}
+
+void ALavaCharacter::EndLavaStun()
+{
+	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 }
 
 
