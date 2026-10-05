@@ -27,6 +27,7 @@ void ALavaGameMode::ReportLifeLost()
 {
 	if (bGameOver) return;
 	LivesLeft--;
+	Score -= 100;
 
 	if (LivesLeft <= 0)
 	{
@@ -40,6 +41,9 @@ void ALavaGameMode::ReportHatchReached()
 
 	if (HasAllKeys())
 	{
+		const float TimeRemaining = GetTimeRemaining();
+		Score += FMath::Max(0, FMath::FloorToInt(TimeRemaining));
+
 		EndGame(true);
 	}
 }
@@ -124,4 +128,25 @@ float ALavaGameMode::GetTimeRemaining() const
 int32 ALavaGameMode::GetLivesLeft() const
 {
 	return LivesLeft;
+}
+
+void ALavaGameMode::DebugGrantAllKeys()
+{
+
+	if (bGameOver) return;
+
+	KeysCollected = KeysRequired;
+	Score = KeysRequired * 200;
+
+	GEngine->AddOnScreenDebugMessage(
+		-1,
+		3.0f,
+		FColor::Green,
+		TEXT("DEBUG: All keys given.")
+	);
+}
+
+void ALavaGameMode::DebugSpeedUpLava()
+{
+	//stub to be implmented after lava rising works
 }

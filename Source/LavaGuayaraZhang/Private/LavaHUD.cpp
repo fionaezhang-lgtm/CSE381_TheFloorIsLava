@@ -44,6 +44,13 @@ void ALavaHUD::DrawHUD()
         GameMode->GetTimeRemaining()
     );
 
+    // Keys
+    const FString KeysText = FString::Printf(
+        TEXT("Keys: %d / %d"),
+        GameMode->GetKeysCollected(),
+        GameMode->GetKeysRequired()
+    );
+
    
 
 
@@ -61,12 +68,12 @@ void ALavaHUD::DrawHUD()
     );
 
 	//Draws a black rectangle behind the text to make it more readable
-    DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,180.0f);
+    DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,220.0f);
 
     DrawText(LivesText, FColor::Yellow,LeftMargin,TopMargin, nullptr,TextScale);
     DrawText(ScoreText, FColor::Yellow, LeftMargin, TopMargin + 40.0f, nullptr, TextScale);
     DrawText(TimeText, FColor::Yellow, LeftMargin, TopMargin + 80.0f, nullptr , TextScale);
     DrawText(LavaHeightText, FColor::Yellow, LeftMargin, TopMargin + 120.0f, nullptr, TextScale);
-
+    DrawText(KeysText, FColor::Yellow, LeftMargin, TopMargin + 160.0f, nullptr, TextScale);
 
 }

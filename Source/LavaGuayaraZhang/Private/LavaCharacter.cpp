@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "LavaGameMode.h"
 
 // Sets default values
 ALavaCharacter::ALavaCharacter()
@@ -86,6 +87,20 @@ void ALavaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		// Bind Look Actions
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ALavaCharacter::Look);
 
+		EnhancedInputComponent->BindAction(
+			DebugSpeedLavaAction,
+			ETriggerEvent::Started,
+			this,
+			&ALavaCharacter::DebugSpeedLava
+		);
+
+		EnhancedInputComponent->BindAction(
+			DebugAllKeysAction,
+			ETriggerEvent::Started,
+			this,
+			&ALavaCharacter::DebugAllKeys
+		);
+
 	}
 
 }
@@ -134,3 +149,22 @@ void ALavaCharacter::Respawn()
 {
 	SetActorLocation(LastSafeLocation);
 }
+
+
+void ALavaCharacter::DebugSpeedLava()
+{
+	ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
+
+	if (GameMode) GameMode->DebugSpeedUpLava();
+	
+}
+
+void ALavaCharacter::DebugAllKeys()
+{
+	ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
+
+	if (GameMode) GameMode->DebugGrantAllKeys();
+	
+}
+
+

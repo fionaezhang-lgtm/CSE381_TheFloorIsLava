@@ -46,6 +46,17 @@ public:
     UFUNCTION(BlueprintPure, Category = "Rules")
     int32 GetScore() const { return Score; }
 
+    UFUNCTION(BlueprintPure, Category = "Rules")
+    int32 GetKeysRequired() const { return KeysRequired; }
+
+
+    //This one isn't implmented since the lava isn't rising yet. 
+    UFUNCTION(BlueprintCallable, Category = "Debug")
+    void DebugSpeedUpLava();
+
+    UFUNCTION(BlueprintCallable, Category = "Debug")
+    void DebugGrantAllKeys();
+
 
 
 protected:
@@ -81,4 +92,6 @@ protected:
 
     bool bGameOver = false;
     FTimerHandle LevelTimer;
+
+   
 };

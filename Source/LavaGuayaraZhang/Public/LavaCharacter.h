@@ -50,6 +50,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> LookAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> DebugSpeedLavaAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> DebugAllKeysAction;
+
 	UPROPERTY(EditAnywhere, Category = "Tuning")
 	float JumpZVelocity = 600.0f;
 
@@ -72,6 +78,9 @@ protected:
 	bool bInLava = false;
 
 	void UpdateSafeLocation();
+	void DebugSpeedLava();
+	void DebugAllKeys();
+
 
 
 
@@ -101,6 +110,8 @@ public:
 	// Third-person field of view
 	UPROPERTY(EditAnywhere, Category = Camera)
 	float ThirdPersonFieldOfView = 70.0f;
+
+
 	
 
 	
