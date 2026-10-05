@@ -7,8 +7,8 @@
 #include "LavaGameMode.generated.h"
 
 
-// commented out for now to avoid compile errors. Will be uncommented when the widget is implemented
-//class UResultWidget;
+
+class UResultWidget;
 
 UCLASS()
 class LAVAGUAYARAZHANG_API ALavaGameMode : public AGameModeBase
@@ -66,9 +66,9 @@ protected:
     float LevelSeconds = 300.f;
 
     /** Assign your WBP_Result child of this on BP_LavaGameMode. */
-    // commented out for now to avoid compile errors. Will be uncommented when the widget is implemented
-    //UPROPERTY(EditDefaultsOnly, Category = "UI")
-    //TSubclassOf<UResultWidget> ResultWidgetClass;
+     
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    TSubclassOf<UResultWidget> ResultWidgetClass;
 
     UPROPERTY(BlueprintReadOnly, Category = "Rules")
     int32 KeysCollected = 0;

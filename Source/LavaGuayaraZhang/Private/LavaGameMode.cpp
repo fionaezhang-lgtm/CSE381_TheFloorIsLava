@@ -4,6 +4,7 @@
 #include "LavaGameMode.h"
 #include "Engine/Engine.h"
 #include "LavaHUD.h"
+#include "ResultWidget.h"
 
 ALavaGameMode::ALavaGameMode()
 {
@@ -24,12 +25,23 @@ void ALavaGameMode::ReportKeyCollected()
 
 void ALavaGameMode::ReportLifeLost()
 {
-	//stub
+	if (bGameOver) return;
+	LivesLeft--;
+
+	if (LivesLeft <= 0)
+	{
+		EndGame(false);
+	}
 }
 
 void ALavaGameMode::ReportHatchReached()
 {
-	//stub
+	if (bGameOver) return;
+
+	if (HasAllKeys())
+	{
+		EndGame(true);
+	}
 }
 
 void ALavaGameMode::BeginPlay()
@@ -57,7 +69,24 @@ void ALavaGameMode::EndPlay(const EEndPlayReason::Type Reason)
 
 void ALavaGameMode::EndGame(bool bWon)
 {
-	//stub
+	if (bGameOver) return;
+
+	bGameOver = true;
+
+	//Stops the clock
+	GetWorldTimerManager().ClearTimer(LevelTimer);
+
+	if (ResultWidgetClass)
+	{
+		UResultWidget* ResultWidget = CreateWidget<UResultWidget>(
+			GetWorld(),
+			ResultWidgetClass
+		);
+
+		if (ResultWidget) ResultWidget->AddToViewport();
+		
+	}
+
 }
 
 void ALavaGameMode::HandleTimeExpired()
