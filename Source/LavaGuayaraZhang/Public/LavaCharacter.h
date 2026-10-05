@@ -75,7 +75,7 @@ protected:
 
 	FTimerHandle SafeLocationTimer;
 
-	bool bInLava = false;
+
 
 	void UpdateSafeLocation();
 	void DebugSpeedLava();

@@ -44,7 +44,7 @@ void ALava::Tick(float DeltaTime)
 
 float ALava::GetRiseHeight() const
 {
-	return GetActorLocation().Z - StartZ;
+	return GetActorLocation().Z;
 }
 
 void ALava::SetRiseRate(float NewRiseRate)

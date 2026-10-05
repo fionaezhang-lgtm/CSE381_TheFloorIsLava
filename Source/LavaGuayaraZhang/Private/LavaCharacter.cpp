@@ -139,7 +139,7 @@ void ALavaCharacter::Look(const FInputActionValue& Value)
 
 void ALavaCharacter::UpdateSafeLocation()
 {
-	if (!GetCharacterMovement()->IsFalling() && !bInLava)
+	if (!GetCharacterMovement()->IsFalling() )
 	{
 		LastSafeLocation = GetActorLocation();
 	}
@@ -147,7 +147,9 @@ void ALavaCharacter::UpdateSafeLocation()
 
 void ALavaCharacter::Respawn()
 {
+
 	SetActorLocation(LastSafeLocation);
+	GetCharacterMovement()->StopMovementImmediately();
 }
 
 
