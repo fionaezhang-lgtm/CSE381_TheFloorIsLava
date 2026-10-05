@@ -63,7 +63,7 @@ protected:
     int32 StartingLives = 3;
 
     UPROPERTY(EditDefaultsOnly, Category = "Tuning", meta = (ClampMin = "0.0", Units = "s"))
-    float LevelSeconds = 300.f;
+    float LevelSeconds = 240.f;
 
     /** Assign your WBP_Result child of this on BP_LavaGameMode. */
      

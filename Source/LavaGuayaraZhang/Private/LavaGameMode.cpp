@@ -83,8 +83,24 @@ void ALavaGameMode::EndGame(bool bWon)
 			ResultWidgetClass
 		);
 
-		if (ResultWidget) ResultWidget->AddToViewport();
-		
+		if (ResultWidget)
+		{
+			ResultWidget->SetupResult(bWon, Score);
+			ResultWidget->AddToViewport();
+
+			APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+
+			if (PlayerController)
+			{
+				PlayerController->bShowMouseCursor = true;
+
+				FInputModeUIOnly InputMode;
+				InputMode.SetWidgetToFocus(ResultWidget->TakeWidget());
+
+				PlayerController->SetInputMode(InputMode);
+			}
+
+		}
 	}
 
 }
@@ -94,6 +110,7 @@ void ALavaGameMode::HandleTimeExpired()
 	if (bGameOver) return;
 
 	//Ends the game if time runs out
+	
 	EndGame(false);
 	
 }
