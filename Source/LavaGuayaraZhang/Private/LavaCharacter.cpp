@@ -47,6 +47,11 @@ void ALavaCharacter::BeginPlay()
 
 	//check(GEngine != nullptr);
 
+	GetCharacterMovement()->JumpZVelocity = JumpZVelocity;
+	GetCharacterMovement()->AirControl = AirControl;
+	GetCharacterMovement()->GravityScale = GravityScale;
+	JumpMaxCount = MaxJumpCount;
+
 	LastSafeLocation = GetActorLocation();
 	GetWorldTimerManager().SetTimer(
 		SafeLocationTimer,
@@ -182,7 +187,7 @@ void ALavaCharacter::Respawn()
 
 void ALavaCharacter::EndLavaStun()
 {
-	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
 }
 
 
@@ -236,15 +241,15 @@ void ALavaCharacter::FinishLavaRespawn()
 {
 	Respawn();
 
+	ALavaGameMode* GM = GetWorld()->GetAuthGameMode<ALavaGameMode>();
+	const bool bOver = GM && GM->IsGameOver();
+
 	APlayerController* PC = Cast<APlayerController>(GetController());
-	if (PC)
+	if (PC && !bOver)
 	{
 		EnableInput(PC);
 		if (PC->PlayerCameraManager)
-		{
 			PC->PlayerCameraManager->StartCameraFade(1.f, 0.f, 0.3f, FLinearColor::Red);
-		}
-		
 	}
 	bInLava = false;
 }

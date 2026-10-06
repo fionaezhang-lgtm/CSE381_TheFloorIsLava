@@ -27,9 +27,10 @@ ALava::ALava()
 void ALava::BeginPlay()
 {
 	Super::BeginPlay();
+	StartZ = GetActorLocation().Z;
 	UE_LOG(LogTemp, Warning, TEXT("Lava start Z=%f, box extent=%s"), StartZ, *Volume->GetScaledBoxExtent().ToString());
 
-	StartZ = GetActorLocation().Z;
+	
 	Volume->OnComponentBeginOverlap.AddDynamic(this, &ALava::HandleOverlap);
 	
 }
@@ -41,11 +42,21 @@ void ALava::Tick(float DeltaTime)
 
 	AddActorWorldOffset(FVector(0.f,0.f,RiseRate * DeltaTime));
 
+	TArray<AActor*> Overlapping;
+	Volume->GetOverlappingActors(Overlapping, ALavaCharacter::StaticClass());
+	for (AActor* Actor : Overlapping)
+	{
+		if (ALavaCharacter* Character = Cast<ALavaCharacter>(Actor))
+		{
+			Character->HandleLavaTouch();
+		}
+	}
+
 }
 
 float ALava::GetRiseHeight() const
 {
-	return GetActorLocation().Z;
+	return GetActorLocation().Z - StartZ;
 }
 
 void ALava::SetRiseRate(float NewRiseRate)

@@ -7,6 +7,7 @@
 #include "ResultWidget.h"
 #include "Lava.h"
 #include "Kismet/GameplayStatics.h"
+#include "RoofHatch.h"
 
 ALavaGameMode::ALavaGameMode()
 {
@@ -57,6 +58,7 @@ void ALavaGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	LivesLeft = StartingLives;
+
 	
 
 	GetWorldTimerManager().SetTimer(
@@ -67,6 +69,18 @@ void ALavaGameMode::BeginPlay()
 		false
 	);
 
+	LavaActor = Cast<ALava>(UGameplayStatics::GetActorOfClass(GetWorld(), ALava::StaticClass()));
+	HatchActor = Cast<ARoofHatch>(UGameplayStatics::GetActorOfClass(GetWorld(), ARoofHatch::StaticClass()));
+	GetWorldTimerManager().SetTimer(LavaCheckTimer, this, &ALavaGameMode::CheckLavaOverHatch, 0.25f, true);
+}
+
+void ALavaGameMode::CheckLavaOverHatch()
+{
+	if (bGameOver || !LavaActor || !HatchActor) return;
+	if (LavaActor->GetActorLocation().Z > HatchActor->GetActorLocation().Z)
+	{
+		EndGame(false);
+	}
 }
 
 void ALavaGameMode::EndPlay(const EEndPlayReason::Type Reason)
@@ -83,6 +97,8 @@ void ALavaGameMode::EndGame(bool bWon)
 
 	//Stops the clock
 	GetWorldTimerManager().ClearTimer(LevelTimer);
+
+	if (LavaActor) LavaActor->SetRiseRate(0.f);
 
 	if (ResultWidgetClass)
 	{
@@ -110,6 +126,8 @@ void ALavaGameMode::EndGame(bool bWon)
 
 		}
 	}
+
+	ClearTimer(LavaCheckTimer);
 
 }
 

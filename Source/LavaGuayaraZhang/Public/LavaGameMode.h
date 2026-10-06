@@ -9,6 +9,8 @@
 
 
 class UResultWidget;
+class ALava;
+class ARoofHatch;
 
 UCLASS()
 class LAVAGUAYARAZHANG_API ALavaGameMode : public AGameModeBase
@@ -57,6 +59,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Debug")
     void DebugGrantAllKeys();
 
+    
+    
+    
+    bool IsGameOver() const { return bGameOver; }
+
 
 
 protected:
@@ -93,5 +100,8 @@ protected:
     bool bGameOver = false;
     FTimerHandle LevelTimer;
 
-   
+    void CheckLavaOverHatch();
+    UPROPERTY() TObjectPtr<ALava> LavaActor;
+    UPROPERTY() TObjectPtr<ARoofHatch> HatchActor;
+    FTimerHandle LavaCheckTimer;
 };
