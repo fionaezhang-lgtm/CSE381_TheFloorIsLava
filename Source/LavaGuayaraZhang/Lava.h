@@ -24,6 +24,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Lava")
     void SetRiseRate(float NewRiseRate);
 
+    UFUNCTION(BlueprintPure, Category = "Lava")
+    float GetRiseRate() const;
+
 protected:
     virtual void BeginPlay() override;
 

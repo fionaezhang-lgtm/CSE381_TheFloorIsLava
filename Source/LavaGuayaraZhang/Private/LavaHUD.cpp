@@ -5,6 +5,7 @@
 #include "LavaGameMode.h"
 #include "Lava.h"
 #include "Kismet/GameplayStatics.h"
+#include "RoofHatch.h"
 
 
 ALavaHUD::ALavaHUD()
@@ -61,6 +62,15 @@ void ALavaHUD::DrawHUD()
 
     if (!Lava) return;
 
+    ARoofHatch* RoofHatch = Cast<ARoofHatch>(
+        UGameplayStatics::GetActorOfClass(
+            GetWorld(),
+            ARoofHatch::StaticClass()
+        )
+    );
+
+    if (!RoofHatch) return;
+
     // Get the player's position
     APawn* PlayerPawn = PlayerController->GetPawn();
 
@@ -68,6 +78,7 @@ void ALavaHUD::DrawHUD()
 
     const float PlayerZ = PlayerPawn->GetActorLocation().Z;
     const float LavaZ = Lava->GetActorLocation().Z;
+    const float RoofZ = RoofHatch->GetActorLocation().Z;
 
     // Distance between the player and the lava
     const float HeightDifference = PlayerZ - LavaZ;
@@ -121,8 +132,8 @@ void ALavaHUD::DrawHUD()
         TrackerHeight
     );
 
-    const float TrackerMinZ = PlayerZ - RangeBelow;
-    const float TrackerMaxZ = PlayerZ + RangeAbove;
+    const float TrackerMinZ = FMath::Min(PlayerZ, LavaZ) - 500.0f;
+    const float TrackerMaxZ = FMath::Max(PlayerZ, RoofZ) + 500.0f;
     const float TrackerRange = TrackerMaxZ - TrackerMinZ;
 
     // -------------------------
@@ -177,10 +188,6 @@ void ALavaHUD::DrawHUD()
         PlayerMarkerSize
     );
 
-    // -------------------------
-    // Labels
-    // -------------------------
-
     DrawText(
         TEXT("PLAYER"),
         FColor::White,
@@ -219,14 +226,52 @@ void ALavaHUD::DrawHUD()
     );
 
 
+    const float LavaRiseRate = Lava->GetRiseRate();
+    float TimeUntilRoof = -1.0f;
 
+    if (LavaRiseRate > 0.0f && RoofZ > LavaZ)
+    {
+        TimeUntilRoof = (RoofZ - LavaZ) / LavaRiseRate;
+    }
 
+    const FString RoofTimeText =
+        TimeUntilRoof >= 0.0f
+        ? FString::Printf(TEXT("Roof in: %.1f s"), TimeUntilRoof)
+        : TEXT("Roof reached");
 
+    DrawText(
+        RoofTimeText,
+        FColor::Yellow,
+        TrackerX - 100.0f,
+        TrackerTop + TrackerHeight + 45.0f,
+        nullptr,
+        1.0f
+    );
 
+    const float RoofAlpha =
+        FMath::Clamp(
+            (RoofZ - TrackerMinZ) / TrackerRange,
+            0.0f,
+            1.0f
+        );
+    const float RoofY =TrackerTop + TrackerHeight * (1.0f - RoofAlpha);
 
-
-
-
+    const float RoofMarkerSize = 16.0f;
+    DrawRect(
+        FLinearColor(0.2f, 1.0f, 0.2f, 1.0f),
+        TrackerX + 12.0f,
+        RoofY - RoofMarkerSize / 2.0f,
+        RoofMarkerSize,
+        RoofMarkerSize
+    );
+    DrawText(
+        TEXT("ROOF"),
+        FColor::Green,
+        TrackerX - 65.0f,
+        RoofY - 10.0f,
+        nullptr,
+        1.0f
+    );
 
 
 

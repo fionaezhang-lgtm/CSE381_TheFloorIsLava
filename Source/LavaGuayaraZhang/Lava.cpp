@@ -79,3 +79,7 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 }
 
 
+float ALava::GetRiseRate() const
+{
+	return RiseRate;
+}
