@@ -8,6 +8,7 @@
 #include "Lava.h"
 #include "Kismet/GameplayStatics.h"
 #include "RoofHatch.h"
+#include "GameFramework/PlayerController.h"
 
 ALavaGameMode::ALavaGameMode()
 {
@@ -48,14 +49,25 @@ void ALavaGameMode::ReportHatchReached()
 	{
 		const float TimeRemaining = GetTimeRemaining();
 		Score += FMath::Max(0, FMath::FloorToInt(TimeRemaining));
-
 		EndGame(true);
+	}
+	else if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Orange,
+			FString::Printf(TEXT("Hatch locked: %d / %d keys"), KeysCollected, KeysRequired));
 	}
 }
 
 void ALavaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
+	{
+		PC->bShowMouseCursor = false;
+		PC->SetInputMode(FInputModeGameOnly());
+		PC->SetPause(false);
+	}
 
 	LivesLeft = StartingLives;
 
@@ -127,7 +139,7 @@ void ALavaGameMode::EndGame(bool bWon)
 		}
 	}
 
-	ClearTimer(LavaCheckTimer);
+	GetWorldTimerManager().ClearTimer(LavaCheckTimer);
 
 }
 
@@ -157,8 +169,11 @@ void ALavaGameMode::DebugGrantAllKeys()
 
 	if (bGameOver) return;
 
+	const int32 Missing = KeysRequired - KeysCollected;
+	if (Missing <= 0) return;
+
 	KeysCollected = KeysRequired;
-	Score = KeysRequired * 200;
+	Score += Missing * 200;
 
 	GEngine->AddOnScreenDebugMessage(
 		-1,
