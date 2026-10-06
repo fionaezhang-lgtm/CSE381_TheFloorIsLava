@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "LavaCharacter.h"
 #include "Camera/CameraComponent.h"
@@ -8,6 +6,8 @@
 #include "LavaGameMode.h"
 #include "Engine/Engine.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "Camera/PlayerCameraManager.h"
 
 // Sets default values
 ALavaCharacter::ALavaCharacter()
@@ -144,7 +144,7 @@ void ALavaCharacter::Look(const FInputActionValue& Value)
 
 void ALavaCharacter::UpdateSafeLocation()
 {
-	if (!GetCharacterMovement()->IsFalling() )
+	if (!GetCharacterMovement()->IsFalling() && !bInLava)
 	{
 		LastSafeLocation = GetActorLocation();
 	}
@@ -200,6 +200,53 @@ void ALavaCharacter::DebugAllKeys()
 
 	if (GameMode) GameMode->DebugGrantAllKeys();
 	
+}
+
+void ALavaCharacter::HandleLavaTouch()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleLavaTouch called"));
+	if (bInLava) return;
+	ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
+	
+
+	if (GameMode == NULL) return;
+	
+	bInLava = true;
+	GameMode->ReportLifeLost();
+
+	LaunchCharacter(FVector(0.f,0.f, LavaLaunchSpeed), true , true);
+
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if(PC) {
+		DisableInput(PC);
+		if (PC->PlayerCameraManager)
+		{
+			PC->PlayerCameraManager->StartCameraFade(0.f, 1.f, LavaFreezeTime, FLinearColor::Red, false, true);
+		}
+	}
+
+	GetWorldTimerManager().SetTimer(RespawnTimer, this, &ALavaCharacter::FinishLavaRespawn, LavaFreezeTime, false);
+	
+
+	
+	
+}
+
+void ALavaCharacter::FinishLavaRespawn()
+{
+	Respawn();
+
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC)
+	{
+		EnableInput(PC);
+		if (PC->PlayerCameraManager)
+		{
+			PC->PlayerCameraManager->StartCameraFade(1.f, 0.f, 0.3f, FLinearColor::Red);
+		}
+		
+	}
+	bInLava = false;
 }
 
 

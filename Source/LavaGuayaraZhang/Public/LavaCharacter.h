@@ -87,6 +87,10 @@ protected:
 	void DebugSpeedLava();
 	void DebugAllKeys();
 
+	
+
+	
+
 
 
 
@@ -118,6 +122,19 @@ public:
 	float ThirdPersonFieldOfView = 70.0f;
 
 
+	void HandleLavaTouch();
+
+	bool bInLava = false;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning", meta = (Units = "cm/s"))
+	float LavaLaunchSpeed = 900.f;
+
+	UPROPERTY(EditAnywhere, Category = "Tuning", meta = (ClampMin = "0.0", Units = "s"))
+	float LavaFreezeTime = 1.0f;
+
+	FTimerHandle RespawnTimer;
+
+	void FinishLavaRespawn();
 	
 
 	

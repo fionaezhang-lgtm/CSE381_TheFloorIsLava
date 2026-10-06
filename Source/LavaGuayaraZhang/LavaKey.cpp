@@ -54,14 +54,12 @@ void ALavaKey::Tick(float DeltaTime)
 
 void ALavaKey::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,bool bFromSweep, const FHitResult& Sweep){
-		if (!Cast<ALavaCharacter>(OtherActor)) return;
-		if( GetWorld()->GetAuthGameMode<ALavaGameMode>() == NULL) return;
-		ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
-		if (!GameMode) return;
-		GameMode->ReportKeyCollected();
-		Destroy();
+	if (!Cast<ALavaCharacter>(OtherActor)) return;
 
-		UE_LOG(LogTemp, Warning, TEXT("KEY PICKED-UP"));
-		Destroy();
+	ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
+	if (!GameMode) return;
+
+	GameMode->ReportKeyCollected();
+	Destroy();
 }
 

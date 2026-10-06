@@ -35,6 +35,8 @@ void ALavaGameMode::ReportLifeLost()
 	{
 		EndGame(false);
 	}
+
+	
 }
 
 void ALavaGameMode::ReportHatchReached()

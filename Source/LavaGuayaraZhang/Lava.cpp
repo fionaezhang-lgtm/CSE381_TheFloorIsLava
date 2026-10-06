@@ -3,7 +3,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "LavaCharacter.h"
 
-#include "Components/CapsuleComponent.h"
+
 
 // Sets default values
 ALava::ALava()
@@ -27,6 +27,7 @@ ALava::ALava()
 void ALava::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("Lava start Z=%f, box extent=%s"), StartZ, *Volume->GetScaledBoxExtent().ToString());
 
 	StartZ = GetActorLocation().Z;
 	Volume->OnComponentBeginOverlap.AddDynamic(this, &ALava::HandleOverlap);
@@ -56,11 +57,13 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& Sweep)
 {
-	if (!Cast<ALavaCharacter>(OtherActor)) return;
-	//if (OtherComp != Character->GetCapsuleComponent()) return;
+	UE_LOG(LogTemp, Warning, TEXT("Lava overlapped by %s"), *GetNameSafe(OtherActor));
+	ALavaCharacter *character = Cast<ALavaCharacter>(OtherActor);
+	
+	if (!character) return;
 
+	character->HandleLavaTouch();
 
-	UE_LOG(LogTemp, Warning, TEXT("Lava Touched"));
 
 }
 

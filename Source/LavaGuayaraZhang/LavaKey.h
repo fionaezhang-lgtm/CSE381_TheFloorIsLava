@@ -18,6 +18,7 @@ public:
     /** Spin and bob, so the player can spot it from across the room. */
     virtual void Tick(float DeltaTime) override;
 
+
     UPROPERTY(EditAnywhere, Category = "Tuning")
     float BobHeight = 0.0f;
 
@@ -25,6 +26,8 @@ public:
     float BobSpeed = 0.0f;
 
     FVector StartLocation;
+
+    
 
 protected:
     virtual void BeginPlay() override;
