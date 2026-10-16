@@ -3,3 +3,7 @@
 
 #include "LavaGameInstance.h"
 
+void ULavaGameInstance::ResetRun()
+{
+
+}
