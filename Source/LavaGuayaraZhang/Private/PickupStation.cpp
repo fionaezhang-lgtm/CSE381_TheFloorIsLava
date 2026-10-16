@@ -14,14 +14,31 @@ APickupStation::APickupStation()
 // Called when the game starts or when spawned
 void APickupStation::BeginPlay()
 {
-	Super::BeginPlay();
+	//Super::BeginPlay();
 	
 }
+//
+//// Called every frame
+//void APickupStation::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//
+//}
 
-// Called every frame
-void APickupStation::Tick(float DeltaTime)
+void APickupStation::EndPlay(const EEndPlayReason::Type Reason)
 {
-	Super::Tick(DeltaTime);
 
 }
 
+void APickupStation::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+	bool bFromSweep, const FHitResult& Sweep)
+{
+
+
+}
+
+void APickupStation::Restock()
+{
+
+}
