@@ -13,22 +13,42 @@ UInventoryComponent::UInventoryComponent()
 	// ...
 }
 
+//
+//// Called when the game starts
+//void UInventoryComponent::BeginPlay()
+//{
+//	Super::BeginPlay();
+//
+//	// ...
+//	
+//}
+//
+//
+//// Called every frame
+//void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+//{
+//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+//
+//	// ...
+//}
 
-// Called when the game starts
-void UInventoryComponent::BeginPlay()
+/** Returns false when that slot is already full. */
+bool UInventoryComponent::AddItem(EItemSlot Slot)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	return false;
 }
 
-
-// Called every frame
-void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UInventoryComponent::EquipSlot(EItemSlot Slot)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 }
 
+void UInventoryComponent::ThrowEquipped()
+{
+
+}
+
+int32 UInventoryComponent::GetCount(EItemSlot Slot) const
+{
+	return -1;
+}
