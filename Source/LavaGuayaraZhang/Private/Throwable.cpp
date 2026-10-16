@@ -18,10 +18,27 @@ void AThrowable::BeginPlay()
 	
 }
 
-// Called every frame
-void AThrowable::Tick(float DeltaTime)
+//// Called every frame
+//void AThrowable::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//
+//}
+
+void AThrowable::HandleHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+	const FHitResult& Hit) 
 {
-	Super::Tick(DeltaTime);
+
+}
+
+void AThrowable::Throw(const FVector& Direction)
+{
+
+}
+
+void AThrowable::SetCarried(bool bCarried)
+{
 
 }
 
