@@ -20,13 +20,13 @@ struct FInventorySlot
     GENERATED_BODY()
 
     // Which Blueprint to spawn when this slot is thrown.
-    UPROPERTY(EditDefaultsOnly, Category = "Slot")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot")
     TSubclassOf<AThrowable> ItemClass;
 
-    UPROPERTY(EditDefaultsOnly, Category = "Slot", meta = (ClampMin = "1"))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot", meta = (ClampMin = "1"))
     int32 Capacity = 3;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Slot")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot")
     int32 Count = 0;
 };
 
@@ -37,6 +37,7 @@ class LAVAGUAYARAZHANG_API  UInventoryComponent : public UActorComponent
 
 public:
     UInventoryComponent();
+    virtual void BeginPlay() override;
 
     /** Returns false when that slot is already full. */
     UFUNCTION(BlueprintCallable, Category = "Inventory")
@@ -56,7 +57,7 @@ protected:
     /** Destroy whatever is in the hand and attach one of the newly equipped item. */
     void RefreshHeldActor();
 
-    UPROPERTY(EditDefaultsOnly, Category = "Inventory")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
     TMap<EItemSlot, FInventorySlot> Slots;
 
     UPROPERTY(BlueprintReadOnly, Category = "Inventory")

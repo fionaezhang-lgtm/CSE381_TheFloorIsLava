@@ -9,6 +9,7 @@
 #include "EnhancedInputSubsystems.h" 
 #include "InputActionValue.h"
 #include "TimerManager.h"
+#include "InventoryComponent.h"
 #include "LavaCharacter.generated.h"
 
 
@@ -49,6 +50,9 @@ protected:
 	// Look Input Actions
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> LookAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> ThrowAction;
 
 	UPROPERTY(EditAnywhere, Category = "Tuning")
 	float LavaStunTime = 1.0f;
@@ -121,6 +125,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Camera)
 	float ThirdPersonFieldOfView = 70.0f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UInventoryComponent> Inventory;
+
 
 	void HandleLavaTouch();
 
@@ -136,7 +143,7 @@ public:
 
 	void FinishLavaRespawn();
 	
-
+	void ThrowItem();
 	
 
 };

@@ -9,6 +9,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
 
+
 // Sets default values
 ALavaCharacter::ALavaCharacter()
 {
@@ -35,6 +36,9 @@ ALavaCharacter::ALavaCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
+	Inventory = CreateDefaultSubobject<UInventoryComponent>(
+		TEXT("Inventory")
+	);
 }
 
 
@@ -96,6 +100,13 @@ void ALavaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 		// Bind Look Actions
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ALavaCharacter::Look);
+
+		EnhancedInputComponent->BindAction(
+			ThrowAction,
+			ETriggerEvent::Started,
+			this,
+			&ALavaCharacter::ThrowItem
+		);
 
 		EnhancedInputComponent->BindAction(
 			DebugSpeedLavaAction,
@@ -254,4 +265,10 @@ void ALavaCharacter::FinishLavaRespawn()
 	bInLava = false;
 }
 
-
+void ALavaCharacter::ThrowItem()
+{
+	if (Inventory)
+	{
+		Inventory->ThrowEquipped();
+	}
+}
