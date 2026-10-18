@@ -6,6 +6,8 @@
 #include "Lava.h"
 #include "Kismet/GameplayStatics.h"
 #include "RoofHatch.h"
+#include "LavaCharacter.h"
+#include "InventoryComponent.h"
 
 
 ALavaHUD::ALavaHUD()
@@ -76,6 +78,10 @@ void ALavaHUD::DrawHUD()
 
     if (!PlayerPawn) return;
 
+    ALavaCharacter* LavaCharacter = Cast<ALavaCharacter>(PlayerPawn);
+
+    
+
     const float PlayerZ = PlayerPawn->GetActorLocation().Z;
     const float LavaZ = Lava->GetActorLocation().Z;
     const float RoofZ = RoofHatch->GetActorLocation().Z;
@@ -90,13 +96,26 @@ void ALavaHUD::DrawHUD()
     );
 
 	//Draws a black rectangle behind the text to make it more readable
-    DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,220.0f);
+    DrawRect( FLinearColor(0.0f, 0.0f, 0.0f, 0.6f),30.0f,30.0f,300.0f,260.0f);
 
     DrawText(LivesText, FColor::Yellow,LeftMargin,TopMargin, nullptr,TextScale);
     DrawText(ScoreText, FColor::Yellow, LeftMargin, TopMargin + 40.0f, nullptr, TextScale);
     DrawText(TimeText, FColor::Yellow, LeftMargin, TopMargin + 80.0f, nullptr , TextScale);
     DrawText(LavaHeightText, FColor::Yellow, LeftMargin, TopMargin + 120.0f, nullptr, TextScale);
     DrawText(KeysText, FColor::Yellow, LeftMargin, TopMargin + 160.0f, nullptr, TextScale);
+
+    if (LavaCharacter && LavaCharacter->GetInventory())
+    {
+        const FText EquippedItemName =
+            LavaCharacter->GetInventory()->GetEquippedItemName();
+
+        const FString EquippedText = FString::Printf(
+            TEXT("Equipped: %s"),
+            *EquippedItemName.ToString()
+        );
+
+        DrawText(EquippedText, FColor::Yellow, LeftMargin, TopMargin + 200.0f, nullptr, TextScale);
+    }
 
     //Draws the distance between the player and lava
 
@@ -272,13 +291,6 @@ void ALavaHUD::DrawHUD()
         nullptr,
         1.0f
     );
-
-
-
-
-
-
-
 
 
 

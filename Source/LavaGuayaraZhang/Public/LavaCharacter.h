@@ -88,19 +88,17 @@ protected:
 	FTimerHandle SafeLocationTimer;
 	FTimerHandle LavaStunTimer;
 
+	
 	void EndLavaStun();
-
-
 
 	void UpdateSafeLocation();
 	void DebugSpeedLava();
 	void DebugAllKeys();
 
-	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> SwapItemAction;
 
-	
-
-
+	void SwapItem();
 
 
 public:	
@@ -132,6 +130,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UInventoryComponent> Inventory;
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	UInventoryComponent* GetInventory() const
+	{
+		return Inventory;
+	}
 
 
 	void HandleLavaTouch();

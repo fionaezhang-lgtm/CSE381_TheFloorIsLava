@@ -14,4 +14,14 @@ class LAVAGUAYARAZHANG_API AExtinguisher : public AThrowable
 {
 	GENERATED_BODY()
 	
+
+public:
+    AExtinguisher();
+
+protected:
+    virtual void BeginPlay() override;
+
+    UFUNCTION() void HandleLavaOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+        UPrimitiveComponent* OtherComponent,int32 OtherBodyIndex, bool bFromSweep,const FHitResult& SweepResult );
+
 };

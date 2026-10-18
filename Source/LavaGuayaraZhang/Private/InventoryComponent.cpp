@@ -32,10 +32,10 @@ bool UInventoryComponent::AddItem(EItemSlot Slot)
 {
 	FInventorySlot* InventorySlot = Slots.Find(Slot);
 
-	if (!InventorySlot || InventorySlot->Count >= InventorySlot->Capacity)
-	{
-		return false;
-	}
+    if (!InventorySlot) return false;
+    const int32 MaxCapacity = (Slot == EItemSlot::Extinguisher) ? 2 : InventorySlot->Capacity;
+
+    if (InventorySlot->Count >= MaxCapacity) return false;
 
 	++InventorySlot->Count;
 
@@ -51,7 +51,7 @@ bool UInventoryComponent::AddItem(EItemSlot Slot)
 void UInventoryComponent::EquipSlot(EItemSlot Slot)
 {
 	if (!Slots.Contains(Slot)) return;
-	
+    if (EquippedSlot == Slot) return;
 	EquippedSlot = Slot;
 	RefreshHeldActor();
 
@@ -196,3 +196,19 @@ void UInventoryComponent::RefreshHeldActor()
         bAttached ? TEXT("true") : TEXT("false"));
 
 }
+
+FText UInventoryComponent::GetEquippedItemName() const
+{
+    switch (EquippedSlot)
+    {
+    case EItemSlot::Cushion:
+        return FText::FromString(TEXT("Cushion"));
+
+    case EItemSlot::Extinguisher:
+        return FText::FromString(TEXT("Extinguisher"));
+
+    default:
+        return FText::FromString(TEXT("None"));
+    }
+}
+

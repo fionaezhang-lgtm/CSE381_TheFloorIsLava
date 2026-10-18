@@ -114,6 +114,13 @@ void ALavaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		);
 
 		EnhancedInputComponent->BindAction(
+			SwapItemAction,
+			ETriggerEvent::Started,
+			this,
+			&ALavaCharacter::SwapItem
+		);
+
+		EnhancedInputComponent->BindAction(
 			DebugSpeedLavaAction,
 			ETriggerEvent::Started,
 			this,
@@ -333,4 +340,16 @@ void ALavaCharacter::ThrowItem()
 	{
 		Inventory->ThrowEquipped();
 	}
+}
+
+void ALavaCharacter::SwapItem()
+{
+	if (!Inventory) return;
+
+	const EItemSlot NewSlot =
+		Inventory->GetEquippedSlot() == EItemSlot::Cushion
+		? EItemSlot::Extinguisher
+		: EItemSlot::Cushion;
+
+	Inventory->EquipSlot(NewSlot);
 }
