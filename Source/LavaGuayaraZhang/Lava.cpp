@@ -92,3 +92,10 @@ float ALava::GetRiseRate() const
 {
 	return RiseRate;
 }
+
+float ALava::GetLavaTopZ() const
+{
+	return Volume->GetComponentLocation().Z
+		+ Volume->GetScaledBoxExtent().Z;
+}
+

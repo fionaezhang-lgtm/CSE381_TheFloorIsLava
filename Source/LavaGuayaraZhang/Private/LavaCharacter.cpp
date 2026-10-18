@@ -8,7 +8,8 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
-
+#include "Lava.h"
+#include "EngineUtils.h"
 
 // Sets default values
 ALavaCharacter::ALavaCharacter()
@@ -39,6 +40,8 @@ ALavaCharacter::ALavaCharacter()
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(
 		TEXT("Inventory")
 	);
+
+	
 }
 
 
@@ -56,7 +59,9 @@ void ALavaCharacter::BeginPlay()
 	GetCharacterMovement()->GravityScale = GravityScale;
 	JumpMaxCount = MaxJumpCount;
 
-	LastSafeLocation = GetActorLocation();
+	InitialSpawnLocation = GetActorLocation();
+	LastSafeLocation = InitialSpawnLocation;
+	SafeLocationHistory.Add(LastSafeLocation);
 	GetWorldTimerManager().SetTimer(
 		SafeLocationTimer,
 		this,
@@ -160,16 +165,73 @@ void ALavaCharacter::Look(const FInputActionValue& Value)
 
 void ALavaCharacter::UpdateSafeLocation()
 {
-	if (!GetCharacterMovement()->IsFalling() && !bInLava)
+	if (GetCharacterMovement()->IsFalling() || bInLava) return;
+	float LavaTopZ = -FLT_MAX;
+
+	for (TActorIterator<ALava> It(GetWorld()); It; ++It)
 	{
-		LastSafeLocation = GetActorLocation();
+		LavaTopZ = FMath::Max(LavaTopZ, It->GetLavaTopZ());
+	}
+
+	const float CharacterBottomZ =
+		GetActorLocation().Z - GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+
+	if (CharacterBottomZ <= LavaTopZ + 10.0f) return;
+
+	LastSafeLocation = GetActorLocation();
+	SafeLocationHistory.Add(LastSafeLocation);
+
+	if (SafeLocationHistory.Num() > 100)
+	{
+		SafeLocationHistory.RemoveAt(0);
 	}
 }
 
 void ALavaCharacter::Respawn()
 {
 
-	SetActorLocation(LastSafeLocation);
+	FVector RespawnLocation = InitialSpawnLocation;
+	bool bFoundSafeLocation = false;
+	float LavaTopZ = -FLT_MAX;
+
+	for (TActorIterator<ALava> It(GetWorld()); It; ++It)
+	{
+		LavaTopZ = FMath::Max(LavaTopZ, It->GetLavaTopZ());
+	}
+
+	const float CapsuleHalfHeight =
+		GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+
+	for (int32 i = SafeLocationHistory.Num() - 1; i >= 0; --i)
+	{
+		const FVector Candidate = SafeLocationHistory[i];
+
+		if (Candidate.Z - CapsuleHalfHeight > LavaTopZ + 10.0f)
+		{
+			RespawnLocation = Candidate;
+			bFoundSafeLocation = true;
+			break;
+		}
+	}
+
+	if (!bFoundSafeLocation &&
+		InitialSpawnLocation.Z - CapsuleHalfHeight > LavaTopZ + 10.0f)
+	{
+		RespawnLocation = InitialSpawnLocation;
+		bFoundSafeLocation = true;
+	}
+
+	if (bFoundSafeLocation)
+	{
+		SetActorLocation(RespawnLocation, false, nullptr,
+			ETeleportType::TeleportPhysics);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error,
+			TEXT("No safe respawn location."));
+	}
+	
 	GetCharacterMovement()->StopMovementImmediately();
 
 	if (GEngine)

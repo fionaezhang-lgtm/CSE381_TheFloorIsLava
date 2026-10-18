@@ -78,6 +78,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Tuning")
 	float SafeLocationInterval = 0.5f;
 
+	UPROPERTY()
+	TArray<FVector> SafeLocationHistory;
+
+	FVector InitialSpawnLocation;
+
 	FVector LastSafeLocation;
 
 	FTimerHandle SafeLocationTimer;
