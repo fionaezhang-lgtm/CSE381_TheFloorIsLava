@@ -186,6 +186,10 @@ void UInventoryComponent::RefreshHeldActor()
         HandSocketName
     );
 
+    HeldActor->SetActorRelativeLocation(HeldItemLocation);
+    HeldActor->SetActorRelativeRotation(HeldItemRotation);
+    HeldActor->SetActorRelativeScale3D(HeldItemScale);
+
     UE_LOG(LogTemp, Warning,
         TEXT("Inventory: Spawned %s; attached=%s"),
         *GetNameSafe(HeldActor),

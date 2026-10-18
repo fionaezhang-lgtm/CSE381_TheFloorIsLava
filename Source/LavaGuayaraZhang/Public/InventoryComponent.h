@@ -69,4 +69,14 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "Inventory")
     FName HandSocketName = TEXT("hand_r");
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory|Hand")
+    FVector HeldItemLocation = FVector::ZeroVector;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory|Hand")
+    FRotator HeldItemRotation = FRotator::ZeroRotator;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory|Hand",
+        meta = (ClampMin = "0.01"))
+    FVector HeldItemScale = FVector(1.0f, 1.0f, 1.0f);
 };

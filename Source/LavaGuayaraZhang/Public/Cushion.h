@@ -6,6 +6,8 @@
 #include "Throwable.h"
 #include "Cushion.generated.h"
 
+class ALava;
+
 /**
  * 
  */
@@ -18,14 +20,21 @@ public:
 	ACushion();
 	void FloatOnLava();
 
+	
+	
+	void SetLavaActor(ALava* InLava);
+
 protected:
 	virtual void BeginPlay() override;
-
+	virtual void Tick(float DeltaTime) override;
 	virtual void HandleHit(UPrimitiveComponent* HitComp,AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,FVector NormalImpulse,const FHitResult& Hit) override;
 
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly,Category = "Cushion")
-	float DestroyDelay = 10.0f;
+	float DestroyDelay = 5.0f;
+
+	UPROPERTY()
+	TObjectPtr<ALava> LavaActor;
 
 private:
 	

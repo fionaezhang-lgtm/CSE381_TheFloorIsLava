@@ -73,6 +73,7 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 
 	if (ACushion* Cushion = Cast<ACushion>(OtherActor))
 	{
+		Cushion->SetLavaActor(this);
 		Cushion->FloatOnLava();
 		return;
 	}

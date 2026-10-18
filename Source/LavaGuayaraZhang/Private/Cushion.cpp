@@ -5,11 +5,25 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "TimerManager.h"
+#include "Lava.h"
 
 
 ACushion::ACushion()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+ void ACushion::Tick(float DeltaTime) 
+{
+     Super::Tick(DeltaTime);
+
+     if (LavaActor)
+     {
+         AddActorWorldOffset(
+             FVector(0.0f, 0.0f, LavaActor->GetRiseRate() * DeltaTime),
+             true
+         );
+     }
 }
 
 void ACushion::BeginPlay()
@@ -48,6 +62,14 @@ void ACushion::FloatOnLava()
         Movement->Deactivate();
     }
 
+    SetActorScale3D(FVector(5.0f, 5.0f, 5.0f));
+
+    FRotator FlatRotation = GetActorRotation();
+    FlatRotation.Pitch = 0.0f;
+    FlatRotation.Roll = 0.0f;
+    SetActorRotation(FlatRotation);
+    AddActorWorldOffset(FVector(0.0f, 0.0f, -30.0f));
+
     if (Mesh)
     {
         Mesh->SetSimulatePhysics(false);
@@ -59,4 +81,9 @@ void ACushion::FloatOnLava()
     }
 
     SetLifeSpan(DestroyDelay);
+}
+
+void ACushion::SetLavaActor(ALava* InLava)
+{
+    LavaActor = InLava;
 }
