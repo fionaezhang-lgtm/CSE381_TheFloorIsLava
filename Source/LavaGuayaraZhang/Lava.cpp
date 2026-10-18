@@ -2,7 +2,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "LavaCharacter.h"
-
+#include "Cushion.h"
 
 
 // Sets default values
@@ -68,7 +68,15 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& Sweep)
 {
+	if (!OtherActor) return;
 	UE_LOG(LogTemp, Warning, TEXT("Lava overlapped by %s"), *GetNameSafe(OtherActor));
+
+	if (ACushion* Cushion = Cast<ACushion>(OtherActor))
+	{
+		Cushion->FloatOnLava();
+		return;
+	}
+
 	ALavaCharacter *character = Cast<ALavaCharacter>(OtherActor);
 	
 	if (!character) return;
