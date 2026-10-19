@@ -63,3 +63,8 @@ void ALavaKey::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 	Destroy();
 }
 
+void ALavaKey::Unlock() 
+{
+
+	//stub
+}

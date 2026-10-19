@@ -46,7 +46,7 @@ public:
     int32 GetLivesLeft() const;
 
     UFUNCTION(BlueprintPure, Category = "Rules")
-    int32 GetScore() const { return Score; }
+    int32 GetScore() const;
 
     UFUNCTION(BlueprintPure, Category = "Rules")
     int32 GetKeysRequired() const { return KeysRequired; }

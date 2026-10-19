@@ -8,6 +8,7 @@
 #include "Lava.h"
 #include "Kismet/GameplayStatics.h"
 #include "RoofHatch.h"
+#include "LavaGameInstance.h"
 #include "GameFramework/PlayerController.h"
 
 ALavaGameMode::ALavaGameMode()
@@ -42,7 +43,7 @@ void ALavaGameMode::ReportHatchReached()
 
 	if (HasAllKeys())
 	{
-		LavaGameInstance* Run = GetGameInstance<ULavaGameInstance>();
+		ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>();
         if (Run) { Run->AddScore(FMath::Max(0, FMath::FloorToInt(GetTimeRemaining()))); }
 
         const bool bLastBuilding = !Run || Run->BuildingIndex >= 1;
@@ -191,7 +192,10 @@ void ALavaGameMode::DebugGrantAllKeys()
 	if (Missing <= 0) return;
 
 	KeysCollected = KeysRequired;
-	Run->AddScore(Missing * 200)
+	if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>())
+	{
+		Run->AddScore(Missing * 200);
+	}
 
 	GEngine->AddOnScreenDebugMessage(
 		-1,
