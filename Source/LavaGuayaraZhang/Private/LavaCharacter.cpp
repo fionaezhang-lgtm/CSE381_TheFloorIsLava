@@ -134,6 +134,13 @@ void ALavaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 			&ALavaCharacter::DebugAllKeys
 		);
 
+		EnhancedInputComponent->BindAction(
+			DebugBuildingTwoAction,
+			ETriggerEvent::Started,
+			this,
+			&ALavaCharacter::DebugJumpToBuildingTwo
+		);
+
 	}
 
 }
@@ -352,4 +359,13 @@ void ALavaCharacter::SwapItem()
 		: EItemSlot::Cushion;
 
 	Inventory->EquipSlot(NewSlot);
+}
+
+void ALavaCharacter::DebugJumpToBuildingTwo()
+{
+	if (ALavaGameMode* GameMode =
+		GetWorld()->GetAuthGameMode<ALavaGameMode>())
+	{
+		GameMode->DebugJumpToBuilding2();
+	}
 }
