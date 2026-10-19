@@ -19,9 +19,9 @@ ALavaGameMode::ALavaGameMode()
 void ALavaGameMode::ReportKeyCollected()
 {
 	if (bGameOver) return;
-
+	if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>()) { Run->AddScore(200); }
 	KeysCollected++;
-	Score+= 200;
+	
 	GEngine->AddOnScreenDebugMessage(-1,3.f, FColor::Yellow, FString::Printf(TEXT("Keys: %d /%d"), 
 	KeysCollected, KeysRequired));
 
@@ -30,15 +30,10 @@ void ALavaGameMode::ReportKeyCollected()
 void ALavaGameMode::ReportLifeLost()
 {
 	if (bGameOver) return;
-	LivesLeft--;
-	Score -= 100;
+    LivesLeft--;
+    if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>()) { Run->AddScore(-100); }
+    if (LivesLeft <= 0) { EndGame(false); }
 
-	if (LivesLeft <= 0)
-	{
-		EndGame(false);
-	}
-
-	
 }
 
 void ALavaGameMode::ReportHatchReached()
@@ -47,15 +42,29 @@ void ALavaGameMode::ReportHatchReached()
 
 	if (HasAllKeys())
 	{
-		const float TimeRemaining = GetTimeRemaining();
-		Score += FMath::Max(0, FMath::FloorToInt(TimeRemaining));
-		EndGame(true);
+		LavaGameInstance* Run = GetGameInstance<ULavaGameInstance>();
+        if (Run) { Run->AddScore(FMath::Max(0, FMath::FloorToInt(GetTimeRemaining()))); }
+
+        const bool bLastBuilding = !Run || Run->BuildingIndex >= 1;
+        if (bLastBuilding) { EndGame(true); }
+        else { AdvanceToNextBuilding(); }
 	}
 	else if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Orange,
 			FString::Printf(TEXT("Hatch locked: %d / %d keys"), KeysCollected, KeysRequired));
 	}
+}
+
+void ALavaGameMode::AdvanceToNextBuilding()
+{
+    bGameOver = true;   // freeze the rules 
+    GetWorldTimerManager().ClearTimer(LevelTimer);
+    GetWorldTimerManager().ClearTimer(LavaCheckTimer);
+
+    if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>()) { Run->BuildingIndex = 1; }
+
+    UGameplayStatics::OpenLevel(this, SecondBuildingLevel);
 }
 
 void ALavaGameMode::BeginPlay()
@@ -82,6 +91,15 @@ void ALavaGameMode::BeginPlay()
 	);
 
 	LavaActor = Cast<ALava>(UGameplayStatics::GetActorOfClass(GetWorld(), ALava::StaticClass()));
+
+	if (LavaActor)
+	{
+		const ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>();
+		if (Run && Run->BuildingIndex >= 1)
+		{
+			LavaActor->SetRiseRate(LavaActor->GetRiseRate() * SecondBuildingLavaMultiplier);
+		}
+	}
 	HatchActor = Cast<ARoofHatch>(UGameplayStatics::GetActorOfClass(GetWorld(), ARoofHatch::StaticClass()));
 	GetWorldTimerManager().SetTimer(LavaCheckTimer, this, &ALavaGameMode::CheckLavaOverHatch, 0.25f, true);
 }
@@ -121,7 +139,7 @@ void ALavaGameMode::EndGame(bool bWon)
 
 		if (ResultWidget)
 		{
-			ResultWidget->SetupResult(bWon, Score);
+			ResultWidget->SetupResult(bWon, GetScore());
 			ResultWidget->AddToViewport();
 
 			APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
@@ -173,7 +191,7 @@ void ALavaGameMode::DebugGrantAllKeys()
 	if (Missing <= 0) return;
 
 	KeysCollected = KeysRequired;
-	Score += Missing * 200;
+	Run->AddScore(Missing * 200)
 
 	GEngine->AddOnScreenDebugMessage(
 		-1,
@@ -200,4 +218,26 @@ void ALavaGameMode::DebugSpeedUpLava()
 			TEXT("Lava speed increased.")
 		);
 	}
+}
+
+void ALavaGameMode::RestartRun()
+{
+    if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>()) { Run->ResetRun(); }
+    UGameplayStatics::OpenLevel(this, FirstBuildingLevel);
+}
+
+int32 ALavaGameMode::GetScore() const
+{
+    const ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>();
+    return Run ? Run->Score : 0;
+}
+
+void ALavaGameMode::DebugJumpToBuilding2()
+{
+    if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>())
+    {
+        Run->BuildingIndex = 1;
+        Run->Score = 800;
+    }
+    UGameplayStatics::OpenLevel(this, SecondBuildingLevel);
 }

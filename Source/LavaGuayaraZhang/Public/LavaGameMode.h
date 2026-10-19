@@ -59,7 +59,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Debug")
     void DebugGrantAllKeys();
 
-    
+    UFUNCTION(BlueprintCallable, Category = "Rules")
+    void RestartRun();
+
+    UFUNCTION(BlueprintCallable, Category = "Debug")
+    void DebugJumpToBuilding2();
     
     
     bool IsGameOver() const { return bGameOver; }
@@ -69,6 +73,8 @@ public:
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+
+    void AdvanceToNextBuilding();
 
     void EndGame(bool bWon);
     void HandleTimeExpired();
@@ -94,8 +100,7 @@ protected:
     UPROPERTY(BlueprintReadOnly, Category = "Rules")
     int32 LivesLeft = 3;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Rules")
-    int32 Score = 0;
+    
 
     bool bGameOver = false;
     FTimerHandle LevelTimer;
@@ -104,4 +109,13 @@ protected:
     UPROPERTY() TObjectPtr<ALava> LavaActor;
     UPROPERTY() TObjectPtr<ARoofHatch> HatchActor;
     FTimerHandle LavaCheckTimer;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Levels")
+    FName FirstBuildingLevel = TEXT("Building1");
+
+    UPROPERTY(EditDefaultsOnly, Category = "Levels")
+    FName SecondBuildingLevel = TEXT("Building2");
+
+    UPROPERTY(EditDefaultsOnly, Category = "Tuning", meta = (ClampMin = "1.0"))
+    float SecondBuildingLavaMultiplier = 1.6f;
 };

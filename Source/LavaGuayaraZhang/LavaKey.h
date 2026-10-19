@@ -27,6 +27,9 @@ public:
 
     FVector StartLocation;
 
+    UFUNCTION(BlueprintCallable, Category = "Key")
+    void Unlock();
+
     
 
 protected:
@@ -45,5 +48,14 @@ protected:
 
     UPROPERTY(EditAnywhere, Category = "Tuning", meta = (Units = "deg/s"))
     float SpinRate = 90.f;
+
+    UPROPERTY(EditInstanceOnly, Category = "Key")
+    bool bLocked = false;
+
+    UPROPERTY(EditInstanceOnly, Category = "Key")
+    FVector DropOffset = FVector::ZeroVector;
+
+    UPROPERTY(EditInstanceOnly, Category = "Key")
+    TObjectPtr<AActor> LockActor;
 
 };
