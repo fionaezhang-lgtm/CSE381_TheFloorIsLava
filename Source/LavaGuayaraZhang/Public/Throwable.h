@@ -39,4 +39,7 @@ protected:
 
     UPROPERTY(EditAnywhere, Category = "Tuning", meta = (ClampMin = "0.0"))
     float ThrowSpeed = 1600.f;
+
+    UPROPERTY(EditAnywhere, Category = "Tuning", meta = (ClampMin = "0.0"))
+    float UpwardBoost = 500.0f;
 };

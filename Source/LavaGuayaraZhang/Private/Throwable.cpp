@@ -66,6 +66,7 @@ void AThrowable::HandleHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
 void AThrowable::Throw(const FVector& Direction)
 {
 	SetCarried(false);
+	if (!Mesh || !Movement) return;
 
 	if (AActor* OwnerActor = GetOwner())
 	{
@@ -77,9 +78,13 @@ void AThrowable::Throw(const FVector& Direction)
 		Mesh->IgnoreActorWhenMoving(InstigatorActor, true);
 	}
 	
-	
-	Movement->Velocity =Direction.GetSafeNormal() * ThrowSpeed;
+	FVector ThrowDirection = Direction.GetSafeNormal();
+	FVector ThrowVelocity = ThrowDirection * ThrowSpeed;
+	ThrowVelocity.Z += UpwardBoost;
+	Movement->ProjectileGravityScale = 1.0f;
+	Movement->Velocity = ThrowVelocity;
 	Movement->Activate(true);
+
 
 }
 

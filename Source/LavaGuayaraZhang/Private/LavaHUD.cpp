@@ -270,7 +270,15 @@ void ALavaHUD::DrawHUD()
 	);
 	DrawText(TEXT("ROOF"), FColor::Green, TrackerX - 65.0f, RoofY - 10.0f, nullptr, 1.0f);
 
+	const float CenterX = ViewportX * 0.5f - 25.0f;
+	const float CenterY = ViewportY * 0.5f - 50.0f;
 
+	const float CrosshairSize = 10.0f;
+	const float CrosshairThickness = 2.0f;
+
+	DrawRect(FLinearColor::White,CenterX -CrosshairThickness / 2.0f,	CenterY - CrosshairSize,CrosshairThickness,CrosshairSize * 2.0f);
+
+	DrawRect(FLinearColor::White,CenterX -CrosshairSize,CenterY - CrosshairThickness / 2.0f,CrosshairSize * 2.0f,CrosshairThickness);
 
 
 }
