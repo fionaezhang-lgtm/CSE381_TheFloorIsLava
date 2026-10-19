@@ -3,10 +3,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TimerManager.h"
 #include "InventoryComponent.h"   // for EItemSlot
 #include "PickupStation.generated.h"
 
+
 class UBoxComponent;
+class UPrimitiveComponent;
+class UStaticMeshComponent;
+class USceneComponent;
 
 UCLASS()
 class LAVAGUAYARAZHANG_API APickupStation : public AActor
@@ -35,6 +40,18 @@ protected:
 
     UPROPERTY(VisibleAnywhere, Category = "Components")
     TObjectPtr<UBoxComponent> Trigger;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    TObjectPtr<UStaticMeshComponent> StationMesh;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    TObjectPtr<UStaticMeshComponent> ExtinguisherMesh;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    TObjectPtr<UStaticMeshComponent> CushionMesh;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    TObjectPtr<USceneComponent> SceneRoot;
 
     bool bAvailable = true;
     FTimerHandle RestockTimer;
