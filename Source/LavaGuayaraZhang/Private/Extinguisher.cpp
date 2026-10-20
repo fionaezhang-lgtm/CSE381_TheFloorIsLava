@@ -2,6 +2,7 @@
 
 
 #include "Extinguisher.h"
+#include "SprinklerTarget.h"
 #include "Lava.h"
 #include "Components/StaticMeshComponent.h"
 
@@ -27,6 +28,19 @@ void AExtinguisher::HandleLavaOverlap(UPrimitiveComponent* OverlappedComponent, 
 {
     if (OtherActor && OtherActor->IsA(ALava::StaticClass()))
     {
+        Destroy();
+    }
+}
+
+void AExtinguisher::HandleHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
+                              UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+                              const FHitResult& Hit)
+{
+    Super::HandleHit(HitComp, OtherActor, OtherComp, NormalImpulse, Hit);
+
+    if (ASprinklerTarget* Target = Cast<ASprinklerTarget>(OtherActor))
+    {
+        Target->OnHitBy(this);
         Destroy();
     }
 }

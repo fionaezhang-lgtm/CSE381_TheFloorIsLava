@@ -18,6 +18,10 @@ class LAVAGUAYARAZHANG_API AExtinguisher : public AThrowable
 public:
     AExtinguisher();
 
+    virtual void HandleHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
+                       UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+                       const FHitResult& Hit) override;
+
 protected:
     virtual void BeginPlay() override;
 
