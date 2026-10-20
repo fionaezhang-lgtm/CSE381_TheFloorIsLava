@@ -102,6 +102,7 @@ protected:
 	void DebugAllKeys();
 	void DebugJumpToBuildingTwo();
 	void DebugRefillInventory();
+	void DebugJumpPressed();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputAction> SwapItemAction;
