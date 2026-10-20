@@ -21,11 +21,6 @@ void ASprinklerTarget::OnHitBy(AActor* Hitter)
 }
 
 // Called when the game starts or when spawned
-void ASprinklerTarget::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
 // Called every frame
 void ASprinklerTarget::Tick(float DeltaTime)
