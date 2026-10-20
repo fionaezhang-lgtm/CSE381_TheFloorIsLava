@@ -148,6 +148,8 @@ void ALavaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 			&ALavaCharacter::DebugRefillInventory
 		);
 
+		PlayerInputComponent->BindKey(EKeys::Nine, IE_Pressed, this, &ALavaCharacter::DebugJumpPressed);
+
 	}
 
 }
@@ -299,6 +301,11 @@ void ALavaCharacter::DebugAllKeys()
 
 	if (GameMode) GameMode->DebugGrantAllKeys();
 	
+}
+
+void ALavaCharacter::DebugJumpPressed()
+{
+    if (ALavaGameMode* GM = GetWorld()->GetAuthGameMode<ALavaGameMode>()) { GM->DebugJumpToBuilding2(); }
 }
 
 void ALavaCharacter::HandleLavaTouch()
