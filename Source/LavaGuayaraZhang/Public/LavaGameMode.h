@@ -111,10 +111,10 @@ protected:
     FTimerHandle LavaCheckTimer;
 
     UPROPERTY(EditDefaultsOnly, Category = "Levels")
-    FName FirstBuildingLevel = TEXT("Building1");
+    FName FirstBuildingLevel = TEXT("FortMap");
 
     UPROPERTY(EditDefaultsOnly, Category = "Levels")
-    FName SecondBuildingLevel = TEXT("Building2");
+    FName SecondBuildingLevel = TEXT("mesaverdelevel");
 
     UPROPERTY(EditDefaultsOnly, Category = "Tuning", meta = (ClampMin = "1.0"))
     float SecondBuildingLavaMultiplier = 1.6f;
