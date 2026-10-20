@@ -47,7 +47,6 @@ void ALavaKey::Tick(float DeltaTime)
 	AddActorLocalRotation(spinRotation);
 
 	
-	float RunningTIme = GetGameTimeSinceCreation();
 
 	FVector CurrentLocation = StartLocation;
 	CurrentLocation.Z += FMath::Sin(GetGameTimeSinceCreation() * BobSpeed) * BobHeight;

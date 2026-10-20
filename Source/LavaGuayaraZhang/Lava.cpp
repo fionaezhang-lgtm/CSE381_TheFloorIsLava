@@ -1,6 +1,6 @@
 #include "Lava.h"
 #include "Extinguisher.h"
-#include "PIckupStation.h"
+#include "PickupStation.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "LavaCharacter.h"

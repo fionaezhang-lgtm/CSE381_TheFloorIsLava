@@ -29,6 +29,9 @@ protected:
     TObjectPtr<UStaticMeshComponent> Mesh;
 
 	UPROPERTY(EditInstanceOnly, Category = "Target")
+	TObjectPtr<ALavaKey> LinkedKey;
+
+	UPROPERTY(EditAnywhere, Category = "Target")
 	TObjectPtr<UMaterialInterface> HitMaterial;
 
 	bool bHit = false;

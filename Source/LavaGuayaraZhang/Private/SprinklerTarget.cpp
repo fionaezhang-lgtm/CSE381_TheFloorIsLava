@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "SprinklerTarget.h"
+#include "Components/StaticMeshComponent.h"
+#include "LavaKey.h"
 
 // Sets default values
 ASprinklerTarget::ASprinklerTarget()
