@@ -212,3 +212,22 @@ FText UInventoryComponent::GetEquippedItemName() const
     }
 }
 
+void UInventoryComponent::DebugRefillInventory()
+{
+
+    FInventorySlot* CushionSlot = Slots.Find(EItemSlot::Cushion);
+    FInventorySlot* ExtinguisherSlot = Slots.Find(EItemSlot::Extinguisher);
+
+    if (CushionSlot)
+    {
+        CushionSlot->Count = CushionSlot->Capacity;
+    }
+
+    if (ExtinguisherSlot)
+    {
+        ExtinguisherSlot->Count = 2;
+    }
+
+    RefreshHeldActor();
+
+}

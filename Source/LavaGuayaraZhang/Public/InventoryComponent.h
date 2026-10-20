@@ -59,6 +59,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Inventory")
     FText GetEquippedItemName() const;
 
+    UFUNCTION(BlueprintCallable, Category = "Inventory|Debug")
+    void DebugRefillInventory();
+
 protected:
     /** Destroy whatever is in the hand and attach one of the newly equipped item. */
     void RefreshHeldActor();

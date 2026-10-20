@@ -141,6 +141,13 @@ void ALavaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 			&ALavaCharacter::DebugJumpToBuildingTwo
 		);
 
+		EnhancedInputComponent->BindAction(
+			DebugRefillInventoryAction,
+			ETriggerEvent::Started,
+			this,
+			&ALavaCharacter::DebugRefillInventory
+		);
+
 	}
 
 }
@@ -367,5 +374,13 @@ void ALavaCharacter::DebugJumpToBuildingTwo()
 		GetWorld()->GetAuthGameMode<ALavaGameMode>())
 	{
 		GameMode->DebugJumpToBuilding2();
+	}
+}
+
+void ALavaCharacter::DebugRefillInventory()
+{
+	if (Inventory)
+	{
+		Inventory->DebugRefillInventory();
 	}
 }

@@ -66,6 +66,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputAction> DebugBuildingTwoAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputAction> DebugRefillInventoryAction;
+
 	UPROPERTY(EditAnywhere, Category = "Tuning")
 	float JumpZVelocity = 600.0f;
 
@@ -97,9 +100,8 @@ protected:
 	void UpdateSafeLocation();
 	void DebugSpeedLava();
 	void DebugAllKeys();
-
-
 	void DebugJumpToBuildingTwo();
+	void DebugRefillInventory();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputAction> SwapItemAction;
