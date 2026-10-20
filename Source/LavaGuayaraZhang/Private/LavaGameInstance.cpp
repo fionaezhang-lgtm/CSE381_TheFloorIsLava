@@ -5,5 +5,5 @@
 
 void ULavaGameInstance::ResetRun()
 {
-
+    Score = 0; BuildingIndex = 0; 
 }

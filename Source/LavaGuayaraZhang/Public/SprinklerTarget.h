@@ -6,18 +6,32 @@
 #include "GameFramework/Actor.h"
 #include "SprinklerTarget.generated.h"
 
+class UStaticMeshComponent;
+class UMaterialInterface;
+class ALavaKey;
+
 UCLASS()
 class LAVAGUAYARAZHANG_API ASprinklerTarget : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+	
 	ASprinklerTarget();
 
+	void OnHitBy(AActor *Hitter);
+
+	UFUNCTION(BlueprintPure, Category = "Target")
+	bool WasHit() const {return bHit;}
+
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+    TObjectPtr<UStaticMeshComponent> Mesh;
+
+	UPROPERTY(EditInstanceOnly, Category = "Target")
+	TObjectPtr<UMaterialInterface> HitMaterial;
+
+	bool bHit = false;
 
 public:	
 	// Called every frame

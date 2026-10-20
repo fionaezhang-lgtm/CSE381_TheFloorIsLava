@@ -34,6 +34,8 @@ void ALavaKey::BeginPlay()
 	StartLocation = GetActorLocation();
 	PickupRange->OnComponentBeginOverlap.AddDynamic(this, &ALavaKey::HandleOverlap);
 	
+
+	PickupRange->SetGenerateOverlapEvents(!bLocked);
 }
 
 // Called every frame
@@ -44,16 +46,18 @@ void ALavaKey::Tick(float DeltaTime)
 	FRotator spinRotation = FRotator(0.0f, SpinRate * DeltaTime, 0.0f);
 	AddActorLocalRotation(spinRotation);
 
-	FVector CurrentLocation = GetActorLocation();
+	
 	float RunningTIme = GetGameTimeSinceCreation();
 
-	CurrentLocation.Z = StartLocation.Z + (FMath::Sin(RunningTIme * BobSpeed) * BobHeight);
+	FVector CurrentLocation = StartLocation;
+	CurrentLocation.Z += FMath::Sin(GetGameTimeSinceCreation() * BobSpeed) * BobHeight;
 	SetActorLocation(CurrentLocation);
 
 }
 
 void ALavaKey::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,bool bFromSweep, const FHitResult& Sweep){
+	if (bLocked) return;
 	if (!Cast<ALavaCharacter>(OtherActor)) return;
 
 	ALavaGameMode* GameMode = GetWorld()->GetAuthGameMode<ALavaGameMode>();
@@ -65,6 +69,12 @@ void ALavaKey::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 
 void ALavaKey::Unlock() 
 {
+	if (!bLocked) return;
+    bLocked = false;
 
-	//stub
+    PickupRange->SetGenerateOverlapEvents(true);
+    PickupRange->UpdateOverlaps();
+
+    StartLocation += DropOffset;  
+    if (IsValid(LockActor)) { LockActor->Destroy(); }
 }

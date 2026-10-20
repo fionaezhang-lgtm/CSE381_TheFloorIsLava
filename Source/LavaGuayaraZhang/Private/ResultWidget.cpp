@@ -4,10 +4,11 @@
 #include "ResultWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/TextBlock.h"
+#include "LavaGameMode.h"
 
 void UResultWidget::PlayAgain()
 {
-    UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()));
+    if (ALavaGameMode* GM = GetWorld()->GetAuthGameMode<ALavaGameMode>()) { GM->RestartRun(); }
 }
 
 

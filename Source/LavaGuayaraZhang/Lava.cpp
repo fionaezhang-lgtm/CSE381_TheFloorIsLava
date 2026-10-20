@@ -1,4 +1,6 @@
 #include "Lava.h"
+#include "Extinguisher.h"
+#include "PIckupStation.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "LavaCharacter.h"
@@ -32,6 +34,7 @@ void ALava::BeginPlay()
 
 	
 	Volume->OnComponentBeginOverlap.AddDynamic(this, &ALava::HandleOverlap);
+	
 	
 }
 
@@ -78,11 +81,19 @@ void ALava::HandleOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 		return;
 	}
 
+	if (OtherActor->IsA<AExtinguisher>() || OtherActor->IsA<APickupStation>())
+	{
+		OtherActor->Destroy();  
+		return;
+	}
+
 	ALavaCharacter *character = Cast<ALavaCharacter>(OtherActor);
 	
 	if (!character) return;
 
 	character->HandleLavaTouch();
+
+	
 
 
 }
