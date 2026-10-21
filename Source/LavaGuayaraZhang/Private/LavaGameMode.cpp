@@ -72,6 +72,13 @@ void ALavaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (ULavaGameInstance* Run = GetGameInstance<ULavaGameInstance>())
+	{
+		
+		const FString CurrentLevel = UGameplayStatics::GetCurrentLevelName(this, true);
+		Run->BuildingIndex = (CurrentLevel == SecondBuildingLevel.ToString()) ? 1 : 0;
+	}
+
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
 		PC->bShowMouseCursor = false;

@@ -32,6 +32,7 @@ void ALavaKey::BeginPlay()
 	Super::BeginPlay();
 
 	StartLocation = GetActorLocation();
+	
 	PickupRange->OnComponentBeginOverlap.AddDynamic(this, &ALavaKey::HandleOverlap);
 	
 
